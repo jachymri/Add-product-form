@@ -11,6 +11,16 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+### Work on form without login
+
+In `.env.local`:
+
+```bash
+NEXT_PUBLIC_DISABLE_AUTH=true
+```
+
+Then open `/dashboard`. Form works for layout testing, but submissions are not saved. Set back to `false` before production.
+
 ## Supabase setup you must do manually
 
 1. Create Supabase project.

@@ -21,16 +21,41 @@ create table if not exists public.products (
   updated_at timestamptz default now(),
 
   name text not null,
-  short_description text,
-  long_description text,
   price numeric,
-  category text,
-  sku text,
-  stock_quantity integer,
-  status text default 'new',
+  quantity integer,
+  club text,
+  photo_urls text[] default '{}',
   notes text,
-  image_urls text[] default '{}'
+  status text default 'new'
 );
+
+-- Existing projects: clean old generic product columns and migrate to jersey names.
+alter table public.products
+  drop column if exists short_description,
+  drop column if exists long_description,
+  drop column if exists category,
+  drop column if exists sku;
+
+do $$
+begin
+  if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'products' and column_name = 'stock_quantity')
+     and not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'products' and column_name = 'quantity') then
+    alter table public.products rename column stock_quantity to quantity;
+  end if;
+end $$;
+
+do $$
+begin
+  if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'products' and column_name = 'image_urls')
+     and not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'products' and column_name = 'photo_urls') then
+    alter table public.products rename column image_urls to photo_urls;
+  end if;
+end $$;
+
+alter table public.products
+  add column if not exists quantity integer,
+  add column if not exists club text,
+  add column if not exists photo_urls text[] default '{}';
 
 -- Keep updated_at fresh.
 create or replace function public.set_updated_at()

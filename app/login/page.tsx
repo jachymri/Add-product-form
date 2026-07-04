@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 
@@ -35,23 +34,21 @@ export default function LoginPage() {
   if (!isSupabaseConfigured) {
     return (
       <main className="shell narrow">
-        <h1>Supabase env missing</h1>
-        <p className="muted">Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.</p>
+        <h1>Chybí Supabase env</h1>
+        <p className="muted">Nastav NEXT_PUBLIC_SUPABASE_URL a NEXT_PUBLIC_SUPABASE_ANON_KEY.</p>
       </main>
     );
   }
 
   return (
     <main className="shell narrow">
-      <p className="eyebrow">Customer portal</p>
-      <h1>Log in with email</h1>
-      <p className="muted">Enter approved customer email. We send one-time magic link.</p>
+      <h1>Přihlášení emailem</h1>
+      <p className="muted">Zadej emailovou adresu. Potom potvrď přihlášení kliknutím na odkaz, který ti přijde do emailu.</p>
 
       {sent ? (
         <div className="card success">
-          <h2>Check email</h2>
-          <p>Open login link, then submit products.</p>
-          <Link href="/dashboard">Go to dashboard</Link>
+          <h2>Zkontroluj email</h2>
+          <p>Otevři přihlašovací odkaz z emailu. Po potvrzení se otevře dashboard.</p>
         </div>
       ) : (
         <form
@@ -75,7 +72,7 @@ export default function LoginPage() {
           {error ? <p className="error">{error}</p> : null}
 
           <button disabled={loading || !email} type="submit">
-            {loading ? "Sending..." : "Send login link"}
+            {loading ? "Odesílám..." : "Poslat přihlašovací odkaz"}
           </button>
         </form>
       )}

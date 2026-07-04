@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "fetch:new": "node scripts/fetch-new-products.mjs"
+    "fetch:new": "node scripts/fetch-new-products.mjs",
+    "wipe:data": "node scripts/wipe-products-and-images.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
