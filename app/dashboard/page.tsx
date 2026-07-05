@@ -275,7 +275,7 @@ export default function DashboardPage() {
       <div className="topbar">
         <div>
           <p className="eyebrow">{isAuthDisabled ? "Vývojový režim: přihlášení vypnuto" : `Přihlášen jako ${user?.email}`}</p>
-          <h1>Seznam dresů</h1>
+          <h1>Přidat nové produkty</h1>
           <p className="muted">Přidej dresy, seřaď fotky, zkontroluj seznam a potom odešli vše najednou.</p>
         </div>
         {isAuthDisabled ? null : <button className="secondary" onClick={logout} type="button">Odhlásit</button>}
